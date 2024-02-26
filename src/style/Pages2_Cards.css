@@ -1,0 +1,93 @@
+.card-container {
+   background: #DAFFFB;
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   font-family: Arial, Helvetica, sans-serif;
+   min-height: 80vh;
+ }
+ 
+ .card {
+   position: relative;
+   width: 200px;
+   height: 300px;
+   border-radius: 0px 10px 10px 0px;
+   background: #f4f4f4;
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   perspective: 100em;
+   margin: 25px;
+   box-shadow: 30px 40px 40px rgba(0,0,0,0.2);
+ }
+ 
+ .cover {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 100%;
+   background: #176B86;
+   transform-style: preserve-3d;
+   transform-origin: left;
+   transition: transform 1s;
+   border-radius: 0px 10px 10px 0px;
+   font-size: 30px;
+   font-weight: bold;
+ }
+ 
+ .card:hover .cover {
+   transform: rotateY(-120deg);
+ }
+ 
+ .coverFront .coverBack {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .coverFront {
+   background: #f4f4f4;
+   text-align: center;
+   border-radius: 0px 10px 10px 0px;
+   color: #333;
+ }
+ 
+ .coverBack {
+   background: #ddd;
+   border-radius: 10px 0px 0px 10px;
+   transform: rotateY(180deg);
+ }
+ 
+ .sh_img {
+   width: 180px;
+ }
+ 
+ .sh_btn {
+   border: 1px solid black;
+   border-radius: 3px;
+   width: 100px;
+   height: 30px;
+   display: block;
+   cursor: pointer;
+   background: linear-gradient(to right, #176B86 50%, white 50%);
+   background-size: 200% 100%;
+   background-position: right bottom;
+   transition: all .375s ease-out;
+   height: 3rem;
+   padding: 0 2rem;
+   border-radius: 1.5rem;
+ }
+ 
+ .sh_btn:hover {
+   background-position: left bottom;
+   color: white;
+ }
+ 
+ .card a {
+   text-decoration: none;
+ }
+ 
