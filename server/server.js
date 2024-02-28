@@ -2,12 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pg = require('pg');
 const cors = require('cors');
+require('dotenv').config();
 
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "pbl",
-  password: "Surya@260604",
+  password:"22@Aug2004",
   port: 5432,
 });
 

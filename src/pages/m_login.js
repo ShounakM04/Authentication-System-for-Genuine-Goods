@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style/m_login.css';
+import factory from '../ethereum/factory';
+import {Loader,Dimmer} from 'semantic-ui-react';
+import web3 from '../ethereum/web3';
+
+
+
 
 const ManufacturerLogin = () => {
     const [id, setId] = useState('');
     const [brand, setBrand] = useState('');
     const [city, setCity] = useState('');
     const [password, setPassword] = useState('');
-
+    const [loading, setLoading] = useState(false);
+    const [address, setAddress] = useState('');
+    
     useEffect(() => {
         const registerBtn = document.getElementById('registerM');
         const loginBtn = document.getElementById('loginM');
@@ -29,11 +37,18 @@ const ManufacturerLogin = () => {
         };
     }, []);
 
+
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
+            setLoading(true);
             const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, password });
             console.log(response.data); 
+            const accounts = await web3.eth.getAccounts();
+            await factory.methods.createManufacturer(id, brand)
+            .send({ from : accounts[0], gas : '1000000'});
+            setLoading(false);
+
         } catch (error) {
             console.error('Error signing up:', error);
            
@@ -44,7 +59,9 @@ const ManufacturerLogin = () => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/m_signin', { id, password });
-            console.log(response.data); 
+            const Manuaddress = await factory.methods.getManufacturerInstance(brand).call();
+            setAddress(Manuaddress);
+            
         } catch (error) {
             console.error('Error signing in:', error);
         }
@@ -61,7 +78,12 @@ const ManufacturerLogin = () => {
                             <input type="text" placeholder="Manufacturer Brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
                             <input type="text" placeholder="Manufacturer City" value={city} onChange={(e) => setCity(e.target.value)} />
                             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                            <button type="submit">Sign Up</button>
+                            <button type="submit">
+                            Sign Up
+                            </button>
+                            <Dimmer active={loading}>
+                            <Loader size='mini'></Loader>
+                            </Dimmer>
                         </form>
                     </div>
                     <div className="form-container sign-in">
@@ -93,3 +115,4 @@ const ManufacturerLogin = () => {
 };
 
 export default ManufacturerLogin;
+//export { address};

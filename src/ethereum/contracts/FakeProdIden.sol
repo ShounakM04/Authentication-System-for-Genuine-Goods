@@ -5,7 +5,7 @@ contract manufacturerFactory
 {
     struct manufacturer
     {
-        string brandName;
+        string id;
         address instance;
     }
     mapping(string => manufacturer) public manufacturersField;
@@ -13,7 +13,7 @@ contract manufacturerFactory
     function createManufacturer(string memory id, string memory brandName) public 
     {
         address newManufacturer = address(new FakeProdIden());
-        manufacturersField[id] = manufacturer(brandName,newManufacturer);
+        manufacturersField[brandName] = manufacturer(id,newManufacturer);
     }
 
     function getManufacturerInstance(string memory brandName) public view returns (address)

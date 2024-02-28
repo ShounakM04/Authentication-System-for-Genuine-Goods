@@ -1,12 +1,11 @@
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider';
 import manuFactory from './build/manufacturerFactory.json' assert { type: "json" };
-require('dotenv').config();
 
-
+const { PHRASE, PROVIDER } = process.env;
 const provider = new HDWalletProvider(
-    process.env.PHRASE,
-    process.env.PROVIDER
+    "virtual enrich present soldier sense cheap strategy armed animal denial net suggest",
+    "https://opt-sepolia.g.alchemy.com/v2/ZfW5FmNeK1qY_Ic1wllZyxrhkYtF7pW1"
 );
 
 const web3 = new Web3(provider);
@@ -27,3 +26,5 @@ const deploy = async () => {
         provider.engine.stop();
     }
 };
+
+deploy();

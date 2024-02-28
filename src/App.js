@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Layout from './components/layout';
-import Section from './components/sections';
-import Start from './components/start';
-import SLogin from './pages/s_login';
-import MLogin from './pages/m_login';
+import Layout from './components/layout.js';
+import Section from './components/sections.js';
+import Start from './components/start.js';
+import SLogin from './pages/s_login.js';
+import MLogin from './pages/m_login.js';
 
 function App() {
   return (

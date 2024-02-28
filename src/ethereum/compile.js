@@ -12,7 +12,7 @@ const fakeProdIdenPath = path.resolve(contractsPath, 'FakeProdIden.sol');
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const buildPath = path.resolve(__dirname, 'build');*/
 fs.removeSync('build');
-const source = fs.readFileSync('C:/Users/Shounak/Desktop/Fake-Product-Identification/ethereum/contracts/FakeProdIden.sol', 'utf-8');
+const source = fs.readFileSync('C:\\Users\\hp\\Fake-Product-Identification\\Fake-Product-Identification\\src\\ethereum\\contracts\\FakeProdIden.sol', 'utf-8');
 
 const input = {
     language: 'Solidity',
