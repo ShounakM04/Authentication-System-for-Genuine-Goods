@@ -3,15 +3,14 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import '../style/s_login.css';
 import axios from 'axios';
-// import pg from 'pg';
-// import fs from 'fs';
+
 
 
   
 const SellerLogin = () => {
     const [id, setId] = useState('');
     const [city, setCity] = useState('');
-    const [password, setPassword] = useState('');
+    const [pass, setPassword] = useState('');
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -39,7 +38,7 @@ const SellerLogin = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/s_signup', { id, city, password });
+            const response = await axios.post('http://localhost:3001/s_signup', { id, city, pass });
             console.log(response.data); 
         } catch (error) {
             console.error('Error signing up:', error);
@@ -50,7 +49,7 @@ const SellerLogin = () => {
     const handleSignIn = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/s_signin', { id, password });
+            const response = await axios.post('http://localhost:3001/s_signin', { id, pass });
             if (response.data === "Successfully signed in") {
                 alert("Login successful");
             } else {
@@ -71,7 +70,7 @@ const SellerLogin = () => {
                         <h1>Create Account</h1>
                         <input type="text" placeholder="Seller ID" value={id} onChange={(e) => setId(e.target.value)} />
                         <input type="text" placeholder="Seller City" value={city} onChange={(e) => setCity(e.target.value)} />
-                        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" placeholder="Password" value={pass} onChange={(e) => setPassword(e.target.value)} />
                         <button type="submit">Sign Up</button>
                     </form>
                 </div>

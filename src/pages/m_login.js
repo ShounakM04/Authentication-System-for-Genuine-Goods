@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style/m_login.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const ManufacturerLogin = () => {
     const [id, setId] = useState('');
     const [brand, setBrand] = useState('');
     const [city, setCity] = useState('');
-    const [password, setPassword] = useState('');
+    const [pass, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const registerBtn = document.getElementById('registerM');
@@ -32,18 +36,26 @@ const ManufacturerLogin = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, password });
+            const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, pass });
+            if (response.data === "Successfully signed in") {
+            } else {
+                alert("Signup unsuccessful");
+            }
             console.log(response.data); 
         } catch (error) {
             console.error('Error signing up:', error);
-           
         }
     };
 
     const handleSignIn = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/m_signin', { id, password });
+            const response = await axios.post('http://localhost:3001/m_signin', { id, pass });
+            if (response.data === "Successfully signed in") {
+               navigate('/index');
+            } else {
+                alert("Login unsuccessful");
+            }
             console.log(response.data); 
         } catch (error) {
             console.error('Error signing in:', error);
@@ -60,7 +72,7 @@ const ManufacturerLogin = () => {
                             <input type="text" placeholder="Manufacturer ID" value={id} onChange={(e) => setId(e.target.value)} />
                             <input type="text" placeholder="Manufacturer Brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
                             <input type="text" placeholder="Manufacturer City" value={city} onChange={(e) => setCity(e.target.value)} />
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" placeholder="Password" value={pass} onChange={(e) => setPassword(e.target.value)} />
                             <button type="submit">Sign Up</button>
                         </form>
                     </div>
@@ -68,7 +80,7 @@ const ManufacturerLogin = () => {
                         <form onSubmit={handleSignIn}>
                             <h1>Sign In</h1>
                             <input type="text" placeholder="Manufacturer ID" value={id} onChange={(e) => setId(e.target.value)} />
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" placeholder="Password" value={pass} onChange={(e) => setPassword(e.target.value)} />
                             <button type="submit">Sign In</button>
                         </form>
                     </div>
