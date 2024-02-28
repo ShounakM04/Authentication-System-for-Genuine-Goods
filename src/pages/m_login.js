@@ -12,7 +12,7 @@ const ManufacturerLogin = () => {
     const [id, setId] = useState('');
     const [brand, setBrand] = useState('');
     const [city, setCity] = useState('');
-    const [password, setPassword] = useState('');
+    const [pass, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [address, setAddress] = useState('');
     
@@ -42,7 +42,7 @@ const ManufacturerLogin = () => {
         event.preventDefault();
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, password });
+            const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, pass });
             console.log(response.data); 
             const accounts = await web3.eth.getAccounts();
             await factory.methods.createManufacturer(id, brand)
@@ -58,7 +58,7 @@ const ManufacturerLogin = () => {
     const handleSignIn = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/m_signin', { id, password });
+            const response = await axios.post('http://localhost:3001/m_signin', { id, pass });
             const Manuaddress = await factory.methods.getManufacturerInstance(brand).call();
             setAddress(Manuaddress);
             
@@ -77,7 +77,7 @@ const ManufacturerLogin = () => {
                             <input type="text" placeholder="Manufacturer ID" value={id} onChange={(e) => setId(e.target.value)} />
                             <input type="text" placeholder="Manufacturer Brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
                             <input type="text" placeholder="Manufacturer City" value={city} onChange={(e) => setCity(e.target.value)} />
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" placeholder="Password" value={pass} onChange={(e) => setPassword(e.target.value)} />
                             <button type="submit">
                             Sign Up
                             </button>
@@ -90,7 +90,7 @@ const ManufacturerLogin = () => {
                         <form onSubmit={handleSignIn}>
                             <h1>Sign In</h1>
                             <input type="text" placeholder="Manufacturer ID" value={id} onChange={(e) => setId(e.target.value)} />
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" placeholder="Password" value={pass} onChange={(e) => setPassword(e.target.value)} />
                             <button type="submit">Sign In</button>
                         </form>
                     </div>
