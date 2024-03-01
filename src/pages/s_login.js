@@ -3,15 +3,18 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import '../style/s_login.css';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 
 
   
 const SellerLogin = () => {
+    
     const [id, setId] = useState('');
     const [city, setCity] = useState('');
     const [pass, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const registerBtn = document.getElementById('register');
@@ -46,12 +49,30 @@ const SellerLogin = () => {
         }
     };
 
+    // const handleSignIn = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //         const response = await axios.post('http://localhost:3001/s_signin', { id, pass });
+    //         if (response.data === "Successfully signed in") {
+    //             navigate('./selltoSeller');
+    //             //alert("Login successful");
+    //         } else {
+    //             alert("Login unsuccessful");
+    //         }
+    //     } catch (error) {
+    //         console.error('Error signing in:', error);
+    //         setError('Invalid credentials. Please try again.');
+    //         alert("Login unsuccessful");
+    //     }
+    // };
+
     const handleSignIn = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/s_signin', { id, pass });
             if (response.data === "Successfully signed in") {
                 alert("Login successful");
+                navigate('/selltoCustomer');
             } else {
                 alert("Login unsuccessful");
             }
@@ -61,6 +82,7 @@ const SellerLogin = () => {
             alert("Login unsuccessful");
         }
     };
+
 
        return (
         <div className="whole_page">

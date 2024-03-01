@@ -2,14 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style/m_login.css';
 import { useNavigate } from 'react-router-dom';
+import factory from '../ethereum/factory';
+//import {Loader,Dimmer} from 'semantic-ui-react';
+import web3 from '../ethereum/web3';
+// import pg from 'pg';
 
+// const db = new pg.Client({
+//     user: "postgres",
+//     host: "localhost",
+//     database: "pbl",
+//     password: "Surya@260604",
+//     port: 5432,
+//   });
 
-const ManufacturerLogin = () => {
+// db.connect();
+
+const ManufacturerLogin = (props) => {
     const [id, setId] = useState('');
     const [brand, setBrand] = useState('');
     const [city, setCity] = useState('');
     const [pass, setPassword] = useState('');
-    const [error, setError] = useState('');
+    
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,7 +50,15 @@ const ManufacturerLogin = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
+            
             const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, pass });
+            console.log(response.data); 
+            const accounts = await web3.eth.getAccounts();
+            await factory.methods.createManufacturer(id, brand)
+            .send({ from : accounts[0], gas : '1000000'});
+            
+            props.setBrandName("Adidas");
+
             if (response.data === "Successfully signed in") {
             } else {
                 alert("Signup unsuccessful");
@@ -51,13 +73,28 @@ const ManufacturerLogin = () => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/m_signin', { id, pass });
+            const Manuaddress = await factory.methods.getManufacturerInstance("Adidas").call();
+            props.setAddress(Manuaddress);
+
             if (response.data === "Successfully signed in") {
-               navigate('/index');
+                // db.query("SELECT manuf_brand FROM manufacturer WHERE manuf_id = $1 and and pass = $2", [ id, pass], (err, result) => 
+                // {
+                //     if(err)
+                //     {
+                //         console.error("Error retrieving data", err.stack);
+                //     }
+                //     else{
+                //         setBrandName(result.rows[0]);
+                //     }
+                // });
+                navigate('/manufacturer');
+
             } else {
                 alert("Login unsuccessful");
             }
             console.log(response.data); 
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Error signing in:', error);
         }
     };

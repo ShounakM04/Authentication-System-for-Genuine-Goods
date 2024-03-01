@@ -18,8 +18,10 @@
     "next": "^12.3.4",
     "next-routes": "^1.4.2",
     "pg": "^8.11.3",
+    "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qr-reader": "^3.0.0-beta-1",
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
     "semantic-ui-css": "^2.5.0",
@@ -64,5 +66,8 @@
       "path": false,
       "stream": false
     }
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

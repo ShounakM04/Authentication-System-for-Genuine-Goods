@@ -1,7 +1,22 @@
 import React from 'react';
  import '../../style/manuf_options.css';
-function Manuf() {
+import { useNavigate } from 'react-router-dom';
 
+function Manuf() {
+    const navigate = useNavigate();
+    
+    const handleAddProduct = ()=>{
+        navigate('./addProduct');
+    }
+
+    const handleAddSeller = ()=>{
+        navigate('./addSeller');
+    }
+
+    const handleSelltoSeller = ()=>{
+        navigate('./selltoseller');
+    }
+    
 
     return (
         <div className='m_options_Mainbody'>
@@ -17,10 +32,10 @@ function Manuf() {
                         <input className='m_input' type="radio" name="slider" id="s2" checked />
                             <input className='m_input' type="radio" name="slider" id="s3" />
 
-                                <label for="s1" id="slide1"><a href="add_seller"><button className='m_options_btn'>Add Seller</button></a></label>
-                                <label for="s2" id="slide2"><a href="add_product"><button className='m_options_btn'>Add Product</button></a></label>
-                                <label for="s3" id="slide3"><a href="sell_prod_to_seller"><button className='m_options_btn'>Sell Product to seller</button></a></label>
-                            </section>
+                                <label for="s1" id="slide1"><button onClick = {handleAddSeller} className='m_options_btn'>Add Seller</button></label>
+                                <label for="s2" id="slide2"><button onClick = {handleAddProduct} className='m_options_btn'>Add Product</button></label>
+                                <label for="s3" id="slide3"><button onClick = {handleSelltoSeller} className='m_options_btn'>Sell Product to seller</button></label>
+                            </section> 
                         </section>
                     </div>
                     );
