@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import '../style/form.css';
-import web3 from '../ethereum/web3';
-import Manufacturer from '../ethereum/manufacturerIns';
+import '../../style/form.css';
+import web3 from '../../ethereum/web3';
+import Manufacturer from '../../ethereum/manufacturerIns';
+import factory from '../../ethereum/factory';
+import axios from 'axios';
 
-const SellToCustomer = ({address}) => {
+const SellToCustomer = () => {
     const customerCode = 0;
     const [brand, setBrand] = useState('');
     const [prodId, setProdId] = useState('');
     const [email, setEmail] = useState('');
 
-    const sold = async ()=>{
+    const sold = async (e)=>{
+        e.preventDefault();
+        const address = await factory.methods.getManufacturerInstance(brand).call();
         const accounts = await web3.eth.getAccounts();
-        const manuIns = Manufacturer(address);
-        await manuIns.methods.SellToCustomer(prodId, customerCode)
-        .send({from:accounts[0], gas:'1000000'});
+        const consumerCode = Math.floor(Math.random() * 1000000);
+        const response = await axios.post("http://localhost:3001/sendEmail", { brand, prodId, email, consumerCode });
         
-
+        
+        const manuIns = Manufacturer(address);
+        await manuIns.methods.sellToConsumer(prodId, customerCode)
+        .send({from:accounts[0], gas:'1000000'});
     }
 
     return(

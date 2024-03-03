@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import Router from '../routes.js';
 import { useEffect } from 'react';
 import '../style/s_login.css';
 import axios from 'axios';
@@ -49,37 +48,22 @@ const SellerLogin = () => {
         }
     };
 
-    // const handleSignIn = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //         const response = await axios.post('http://localhost:3001/s_signin', { id, pass });
-    //         if (response.data === "Successfully signed in") {
-    //             navigate('./selltoSeller');
-    //             //alert("Login successful");
-    //         } else {
-    //             alert("Login unsuccessful");
-    //         }
-    //     } catch (error) {
-    //         console.error('Error signing in:', error);
-    //         setError('Invalid credentials. Please try again.');
-    //         alert("Login unsuccessful");
-    //     }
-    // };
-
     const handleSignIn = async (event) => {
+
         event.preventDefault();
+        console.log("printintg in slogin",id , pass);
         try {
             const response = await axios.post('http://localhost:3001/s_signin', { id, pass });
-            if (response.data === "Successfully signed in") {
+            if (response.data == "1") {
                 alert("Login successful");
-                navigate('/selltoCustomer');
+                navigate('/selltoConsumer');
             } else {
                 alert("Login unsuccessful");
             }
         } catch (error) {
             console.error('Error signing in:', error);
             setError('Invalid credentials. Please try again.');
-            alert("Login unsuccessful");
+            alert("Login unsuccessful catch ");
         }
     };
 
@@ -99,8 +83,18 @@ const SellerLogin = () => {
                 <div className="form-container sign-in">
                     <form onSubmit={handleSignIn}>
                         <h1>Sign In</h1>
-                        <input type="text" placeholder="YOUR ID" />
-                        <input type="password" placeholder="Password" />
+                        <input 
+                        type="text" 
+                        placeholder="YOUR ID" 
+                        text={id}
+                        onChange={e => setId(e.target.value)}    
+                        />
+                        <input 
+                        type="password" 
+                        placeholder="Password" 
+                        text={pass}
+                        onChange={e => setPassword(e.target.value)}    
+                        />
                         <button type="submit">Sign In</button>
                     </form>
                 </div>

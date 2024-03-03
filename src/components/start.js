@@ -1,10 +1,7 @@
-//import React from 'react';
 import React, { useState, useEffect } from 'react';
 import Layout from '../components/layout';
-//import './_app'
 import OpeningCard from './sections.js';
-//import SellerLogin from '../pages/s_login.js';
-import '../style/home.css'; // Import the CSS file for styling
+import '../style/home.css'; 
 
 function Home() {
     const [isScrolling, setIsScrolling] = useState(false);
@@ -35,8 +32,8 @@ function Home() {
         const scrollStep = Math.round(windowHeight / (scrollDuration / 15));
         smoothScroll(scrollStep, windowHeight, scrollDuration);
 
-        const initialColor = 4 * 255; // Initial color value (e.g., #04364A)
-        const finalColor = 255; // Final color value (e.g., white)
+        const initialColor = 4 * 255; 
+        const finalColor = 255; 
         document.body.style.backgroundColor = `rgb(${initialColor}, ${initialColor}, ${initialColor})`;
 
     };

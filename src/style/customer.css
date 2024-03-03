@@ -1,0 +1,24 @@
+.inp_text{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+  
+  }
+  .inp_text label{
+    position: relative;
+    left: 31%;
+    top: 9px;
+    z-index: 2;
+    font-size: 15px;
+    background-color: white;
+    width: 120px;
+  
+  }
+  
+  .inp_code{
+    padding: 10px;
+    width: 50%;
+    position: relative;
+    left: 30% ;
+    outline: none;
+  }

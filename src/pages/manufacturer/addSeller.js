@@ -9,20 +9,14 @@ const AddSeller = ({ address }) => {
     const [name, setName] = useState('');
 
     const adding = async (event) => {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); 
 
         try {
             
             const accounts = await web3.eth.getAccounts();
             const manuIns = Manufacturer(address);
-            // Trigger MetaMask window to confirm transaction
-            //await window.ethereum.enable();
-
-            // Send transaction using MetaMask
             await manuIns.methods.addSellers(id)
                 .send({ from: accounts[0], gas: '1000000' });
-
-            // Transaction successful, clear form fields
             setId('');
             setCity('');
             setName('');

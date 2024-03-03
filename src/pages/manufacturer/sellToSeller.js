@@ -22,11 +22,11 @@ const SellToSeller = ({ address }) => {
 
     return (
         <>
-            <div className="body"> {/* Changed class to className */}
+            <div className="body">
                 <h1>Sell product to seller by Manufacturer</h1>
                 <form onSubmit={sell}>
 
-                    <div className="grp"> {/* Changed class to className */}
+                    <div className="grp">
                         <input
                             type="text"
                             placeholder="Enter PRODUCT ID"

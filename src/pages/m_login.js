@@ -3,19 +3,7 @@ import axios from 'axios';
 import '../style/m_login.css';
 import { useNavigate } from 'react-router-dom';
 import factory from '../ethereum/factory';
-//import {Loader,Dimmer} from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
-// import pg from 'pg';
-
-// const db = new pg.Client({
-//     user: "postgres",
-//     host: "localhost",
-//     database: "pbl",
-//     password: "Surya@260604",
-//     port: 5432,
-//   });
-
-// db.connect();
 
 const ManufacturerLogin = (props) => {
     const [id, setId] = useState('');
@@ -53,11 +41,14 @@ const ManufacturerLogin = (props) => {
             
             const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, pass });
             console.log(response.data); 
+            const res = await axios.post("http://localhost:3001/brand", { id })
             const accounts = await web3.eth.getAccounts();
             await factory.methods.createManufacturer(id, brand)
             .send({ from : accounts[0], gas : '1000000'});
             
-            props.setBrandName("Adidas");
+            props.setBrandName(res.data.manuf_brand);
+            props.setCity(res.data.manuf_city);
+            props.setManuId(res.data.manuf_id);
 
             if (response.data === "Successfully signed in") {
             } else {
@@ -73,20 +64,16 @@ const ManufacturerLogin = (props) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/m_signin', { id, pass });
-            const Manuaddress = await factory.methods.getManufacturerInstance("Adidas").call();
-            props.setAddress(Manuaddress);
+            
 
             if (response.data === "Successfully signed in") {
-                // db.query("SELECT manuf_brand FROM manufacturer WHERE manuf_id = $1 and and pass = $2", [ id, pass], (err, result) => 
-                // {
-                //     if(err)
-                //     {
-                //         console.error("Error retrieving data", err.stack);
-                //     }
-                //     else{
-                //         setBrandName(result.rows[0]);
-                //     }
-                // });
+                const res = await axios.post('http://localhost:3001/brand', { id });
+                console.log(res);
+                props.setBrandName(res.data.manuf_brand);
+                props.setCity(res.data.manuf_city);
+                props.setManuId(res.data.manuf_id);
+                const Manuaddress = await factory.methods.getManufacturerInstance(res.data.manuf_brand).call();
+                props.setAddress(Manuaddress);
                 navigate('/manufacturer');
 
             } else {
