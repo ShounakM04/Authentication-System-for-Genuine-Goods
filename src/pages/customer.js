@@ -89,7 +89,7 @@ const Qrcode = () => {
                 </div>
                 <div>
                     <div className='inp_text'>
-                        <label>Consumer Code</label>
+                        <label>Product ID</label>
                         <input
                             className='inp_code'
                             placeholder="Enter the Consumer Code"
@@ -103,8 +103,8 @@ const Qrcode = () => {
                     onClick={authenticate}
                 >Authenticate product</button>
                 <div>
-                    <h3>Manufacturer Code: {manufacturerCode}</h3>
-                    <h3>Product Code: {productCode}</h3>
+                    <h3>Manufacturer Brand: {manufacturerCode}</h3>
+                    <h3>Consumer Code: {productCode}</h3>
                 </div>
                 <div>
                     <h1>The Product is: {authenticationres}</h1>

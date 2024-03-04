@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Start from './components/start.js';
 import SLogin from './pages/s_login.js';
 import MLogin from './pages/m_login.js';
-import Manuf from './pages/manufacturer/index.js';
+import Manuf from './pages/manufacturer/index/index.js';
 import AddProduct from './pages/manufacturer/addProduct.js';
 import Qrcode from './pages/customer.js';
 import AddSeller from './pages/manufacturer/addSeller.js';

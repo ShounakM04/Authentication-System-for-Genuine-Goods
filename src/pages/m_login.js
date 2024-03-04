@@ -74,7 +74,14 @@ const ManufacturerLogin = (props) => {
                 props.setManuId(res.data.manuf_id);
                 const Manuaddress = await factory.methods.getManufacturerInstance(res.data.manuf_brand).call();
                 props.setAddress(Manuaddress);
-                navigate('/manufacturer');
+                navigate('/manufacturer',{
+                    state: {
+                        brand: res.data.manuf_brand,
+                        id: res.data.manuf_id,
+                        city: res.data.manuf_city
+                    }
+                });
+                
 
             } else {
                 alert("Login unsuccessful");

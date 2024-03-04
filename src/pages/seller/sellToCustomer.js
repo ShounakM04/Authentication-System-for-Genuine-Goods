@@ -6,7 +6,6 @@ import factory from '../../ethereum/factory';
 import axios from 'axios';
 
 const SellToCustomer = () => {
-    const customerCode = 0;
     const [brand, setBrand] = useState('');
     const [prodId, setProdId] = useState('');
     const [email, setEmail] = useState('');
@@ -20,7 +19,7 @@ const SellToCustomer = () => {
         
         
         const manuIns = Manufacturer(address);
-        await manuIns.methods.sellToConsumer(prodId, customerCode)
+        await manuIns.methods.sellToConsumer(prodId, consumerCode)
         .send({from:accounts[0], gas:'1000000'});
     }
 
