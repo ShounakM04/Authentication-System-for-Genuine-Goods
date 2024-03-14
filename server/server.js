@@ -21,7 +21,7 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+9
 app.post("/s_signup", (req, res) => {
   const { id, city, pass } = req.body;
   db.query("INSERT INTO seller (seller_id, seller_city, pass) VALUES ($1, $2, $3)", [id, city, pass], (err, result) => {

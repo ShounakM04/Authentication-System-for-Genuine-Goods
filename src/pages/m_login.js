@@ -37,8 +37,7 @@ const ManufacturerLogin = (props) => {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        try {
-            
+        try { 
             const response = await axios.post('http://localhost:3001/m_signup', { id, brand, city, pass });
             console.log(response.data); 
             const res = await axios.post("http://localhost:3001/brand", { id })
@@ -64,8 +63,7 @@ const ManufacturerLogin = (props) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/m_signin', { id, pass });
-            
-
+        
             if (response.data === "Successfully signed in") {
                 const res = await axios.post('http://localhost:3001/brand', { id });
                 console.log(res);

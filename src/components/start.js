@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../components/layout';
 import OpeningCard from './sections.js';
 import '../style/home.css'; 
+import '../style/header.css'; 
+import '../style/heading.css'; 
+
+
 
 function Home() {
     const [isScrolling, setIsScrolling] = useState(false);
@@ -68,6 +72,9 @@ function Home() {
         <>
         <Layout>
             <div className="start">
+                <div className='line'>
+                <h1> Fake Product Identification </h1>
+                </div>
                 <button className="button" onClick={handleClick}>
                     <h2>Get Started</h2>
                 </button>
