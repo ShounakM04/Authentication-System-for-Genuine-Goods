@@ -12,7 +12,7 @@ function AddProduct({ address }) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   let [qrFlag, setQrFlag] = useState(0);
-  // const qrDescriptionRef = useRef(null);
+  const qrDescriptionRef = useRef(null);
 
   const generateQRCode = async (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ function AddProduct({ address }) {
       const bor = document.querySelector(".qrimg");
       bor.classList.add("qrborder");
       setQrFlag(1);
-      // qrDescriptionRef.current.innerHTML = 'QR Code Generated';
+      qrDescriptionRef.current.innerHTML = "Clilck On the Qr To Download";
     } catch (error) {
       console.error("Error generating QR code:", error);
     }
@@ -85,7 +85,7 @@ function AddProduct({ address }) {
           <i></i>SUBMIT
         </button>
         {/* <h3>Clilck On the Qr To Download </h3> */}
-        {/* <div className="qrDescription" ref={qrDescriptionRef}></div> */}
+        <div className="qrDescription" ref={qrDescriptionRef}></div>
         <div className="qrimg">
           {imageQR && (
             <a href={imageQR} download>

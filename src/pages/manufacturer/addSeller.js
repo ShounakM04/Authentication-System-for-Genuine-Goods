@@ -30,7 +30,7 @@ const AddSeller = ({ address }) => {
 
   return (
     <div className="body">
-      <h1>Add Seller by Manufacturer</h1>
+      <h1>Enter Seller Details</h1>
       <form onSubmit={adding}>
         <div className="grp">
           <input
