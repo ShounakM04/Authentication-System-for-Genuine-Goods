@@ -63,7 +63,7 @@
 
 }
 .grp1 input{
-    border-color: #3742fa;
+    border-color: #1899D6;
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -82,7 +82,7 @@
     transform: translateY(-50%) translateX(-350%);
     background-color: #fff;
     padding: 2px;
-    color: #3742fa;
+    color: #1899D6;
 }
 
 .btn {
@@ -172,4 +172,24 @@
   
   .fadeInUp-animation {
     animation: 1.5s fadeInUp;
+  }
+
+  .qrimg{
+    position: absolute;
+    right: 200px;
+    top: 200px;
+    width: 300px; 
+    height: 300px;
+
+  }
+  .qrborder{
+    border: 3px solid black;
+    padding: 10px;
+    border-radius: 30px;
+    background-color: white;
+  }
+
+  .qrDescription{
+    position: absolute;
+    left: 50%;
   }

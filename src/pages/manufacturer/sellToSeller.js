@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import Manufacturer from '../../ethereum/manufacturerIns';
 import web3 from '../../ethereum/web3';
+import "@fortawesome/fontawesome-free/css/all.css";
+
 
 const SellToSeller = ({ address }) => {
     const [prodId, setProdId] = useState('');
     const [sellerId, setSellerId] = useState('');
     const [sellerName, setSellerName] = useState('');
-
+    
     const sell = async (event) => {
         event.preventDefault();
+        const icon = event.currentTarget.querySelector("i");
+    icon.classList.add("fa", "fa-spinner", "fa-pulse");
         try {
             const accounts = await web3.eth.getAccounts();
             const manuIns = Manufacturer(address);
@@ -18,6 +22,8 @@ const SellToSeller = ({ address }) => {
             console.error('Error selling to seller:', error);
 
         }
+    icon.classList.remove("fa", "fa-spinner", "fa-pulse");
+
     };
 
     return (
@@ -57,7 +63,7 @@ const SellToSeller = ({ address }) => {
                         />
                         <label htmlFor="seller_name">SELLER NAME</label>
                     </div>
-                    <button type="submit" className='btn'>SUBMIT</button>
+                    <button type="submit" className='btn buttonload'><i></i>SUBMIT</button>
 
                 </form>
             </div>

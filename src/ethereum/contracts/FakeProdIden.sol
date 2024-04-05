@@ -25,17 +25,12 @@ contract manufacturerFactory
 contract FakeProdIden
 {
 
-    string retailerId;
-
-    
-
-    
-
     struct Product
     {
         string productId;
         string name;
         string brandName;
+        bool hasmade;
         uint32 consumerCode;
     }
 
@@ -60,14 +55,18 @@ contract FakeProdIden
     // Function to add Add a product
     function addProduct(string memory id, string memory name, string memory brandName) public
     {
-        productStorage[id] = Product(id, name, brandName, 0);
+        require(productStorage[id].hasmade == false);
+        productStorage[id] = Product(id, name, brandName, true, 0);
     }
 
     // Function to sell product to seller call by manufacturer
     function sellToSeller(string memory prodId, string memory sellerId) public 
     {
+        require(productStorage[prodId].hasmade == true);
+        require(hasReachedToSeller[prodId].hasReached == false);
         hasReachedToSeller[prodId].sellerId = sellerId;
         hasReachedToSeller[prodId].hasReached = true; 
+
     }
 
     // Function to Add sellers.This will be called by only sellers to add their info
@@ -79,6 +78,8 @@ contract FakeProdIden
     // Function to sell product to consumer called by seller
     function sellToConsumer(string memory prodId, uint32 consumerCode) public 
     {
+        require(productStorage[prodId].hasmade == true);
+        require(hasReachedToConsumer[prodId] == false);
         hasReachedToConsumer[prodId] = true;
         productStorage[prodId].consumerCode = consumerCode;
     }

@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import solc from 'solc';
 
 fs.removeSync('build');
-const source = fs.readFileSync('C:\\Users\\Shounak\\Desktop\\React-Fake-product-identification\\fake-product-identification\\ethereum\\contracts\\FakeProdIden.sol', 'utf-8');
+const source = fs.readFileSync('D:\\PBL FINAL\\Fake-Product-Identification\\src\\ethereum\\contracts\\FakeProdIden.sol', 'utf-8');
 
 const input = {
     language: 'Solidity',

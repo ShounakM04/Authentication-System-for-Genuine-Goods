@@ -25,7 +25,7 @@ const SellToCustomer = () => {
 
     return(
         <div class="body">
-        <h1>Entered into seller</h1>
+        <h1>Sell Product to Consumer</h1>
         <form onSubmit={sold}>
 
         <div class="grp">

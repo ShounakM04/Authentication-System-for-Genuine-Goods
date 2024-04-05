@@ -101,13 +101,13 @@ const SellerLogin = () => {
                 <div className="toggle-container">
                     <div className="toggle">
                         <div className="toggle-panel toggle-left">
-                            <h1>Welcome Back! Seller</h1>
-                            <p>Enter your personal details to use all site features</p>
+                            <h1>Already Registerd?</h1>
+                            <p>Sign in to proceed further</p>
                             <button className="hidden" id="login" onClick={() => document.getElementById('container').classList.remove("active")}>Sign In</button>
                         </div>
                         <div className="toggle-panel toggle-right">
-                            <h1>Hello, Seller!</h1>
-                            <p>Register with your personal details to use all site features</p>
+                            <h1>New User?</h1>
+                            <p>Put your personal details to Register and use all the features of the site.</p>
                             <button className="hidden" id="register" onClick={() => document.getElementById('container').classList.add("active")}>Sign Up</button>
                         </div>
                     </div>

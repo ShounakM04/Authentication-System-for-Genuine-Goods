@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import '../style/header.css';
+import {Link} from 'react-router-dom' 
 
 function Header() {
   useEffect(() => {
@@ -22,24 +23,17 @@ function Header() {
   return (
     <nav>
       <div className="beg">
-        <a href="#navname">
+        <a href="/">
           <h1>NavBarName</h1>
         </a>
 
-        <a href="#home">Home</a>
+        <a href="/">Home</a>
 
-        <div className="dropdown">
-          <button className="dropbtn">Services</button>
-          <div className="dropdown-content">
-            <a href="#service1">Service 1</a>
-            <a href="#service2">Service 2</a>
-            <a href="#service3">Service 3</a>
-          </div>
-        </div>
+        
       </div>
       <div className="end">
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <Link to = "/about">About</Link>
+        <a href="/contact">Contact</a>
       </div>
     </nav>
   );

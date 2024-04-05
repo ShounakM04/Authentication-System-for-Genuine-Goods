@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const pg = require('pg');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
 
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "pbl",
-  password: "",
+  database: "PBL",
+  password: "AmPpg@123",
   port: 5432,
 });
 
@@ -17,20 +18,27 @@ db.connect();
 
 const app = express();
 const port = 3001;
+const saltRounds = 10;
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+9
 app.post("/s_signup", (req, res) => {
   const { id, city, pass } = req.body;
-  db.query("INSERT INTO seller (seller_id, seller_city, pass) VALUES ($1, $2, $3)", [id, city, pass], (err, result) => {
+  bcrypt.hash(pass, saltRounds, function(err, hash) {
+    if(err){
+      console.log(err);
+    } else {
+  db.query("INSERT INTO seller (seller_id, seller_city, pass) VALUES ($1, $2, $3)", [id, city, hash], (err, result) => {
     if (err) {
       console.error("Error inserting seller:", err.stack);
       return res.status(500).send({ error: "Error signing up" }); 
     }
     res.status(200).send("Successfully signed up");
   });
+}
+});
 });
 
 
@@ -42,22 +50,38 @@ app.post("/s_signin", (req, res) => {
       console.error("Error retrieving manufacturer:", err.stack);
       return res.status(500).send({ error: "Error signing in" }); 
     }
-    const seller = result.rows[0];
-    if (!seller || seller.pass != pass) {
+    console.log(result.rows[0]);
+    /*if (!seller || seller.pass != pass) {
       return res.status(401).send("Invalid credentials");
     }
-      return res.status(200).send("1");
+      return res.status(200).send("1");*/
+      bcrypt.compare(pass, result.rows[0].pass, function(err, reslt){
+        if(reslt){
+          res.status(200).send("1");
+        }
+        else{
+          return res.status(402).send("Invalid credentials");
+        }
+      });
   });
 });
 
 app.post("/m_signup", (req, res) => {
   const { id, brand, city, pass } = req.body;
-  db.query("INSERT INTO manufacturer (manuf_id, manuf_brand, manuf_city, pass) VALUES ($1, $2, $3, $4)", [id, brand, city, pass], (err, result) => {
-    if (err) {
-      console.error("Error inserting manufacturer:", err.stack);
-      return res.status(500).send({ error: "Error signing up" });
+  bcrypt.hash(pass,saltRounds, function(err,hash){
+    if(err){
+      console.log(err);
+    } 
+    else{
+      db.query("INSERT INTO manufacturer (manuf_id, manuf_brand, manuf_city, pass) VALUES ($1, $2, $3, $4)", [id, brand, city, hash], (err, result) => {
+        if (err) {
+          console.error("Error inserting manufacturer:", err.stack);
+          return res.status(500).send("Error signing up");
+        }
+        //res.render("m_login.ejs");
+        res.status(200).send("success");
+      });
     }
-    res.status(200).send("Successfully signed up");
   });
 });
 
@@ -69,10 +93,14 @@ app.post("/m_signin", (req, res) => {
       return res.status(500).send({ error: "Error signing in" }); 
     }
     const manufacturer = result.rows[0];
-    if (!manufacturer || manufacturer.pass !== pass) {
-      return res.status(401).send("Invalid credentials");
-    }
-    res.status(200).send("Successfully signed in");
+    bcrypt.compare(pass, manufacturer.pass, function(err, reslt){
+      if(reslt){
+        res.status(200).send("Successfully signed in");
+      }
+      else{
+        res.status(401).send("Invalid credentials");
+      }
+    });
   });
 });
 
@@ -111,7 +139,7 @@ app.post("/sendEmail", (req, res) => {
     from: "amolpatilgamer55@gmail.com",
     to: email,
     subject: `Your consumer code for purchase is ${consumerCode}`,
-    text: `Your consumer code on purchase from ${brand} product-id : ${prodId} is ${consumerCode}`,
+    text:` Your consumer code on purchase from ${brand} product-id : ${prodId} is ${consumerCode}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

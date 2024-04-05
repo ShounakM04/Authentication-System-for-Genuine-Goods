@@ -1,63 +1,80 @@
-import React from 'react';
-import '../style/home.css';
-import '../style/m_login.css';
-import '../style/Pages2_Cards.css';
-import '../style/s_login.css';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import "../style/home.css";
+import "../style/m_login.css";
+import "../style/Pages2_Cards.css";
+import "../style/s_login.css";
+import { useNavigate } from "react-router-dom";
 
 const OpeningCard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="card-container">
-      <div className="card">
-        <div style={{ padding: '20px', textAlign: 'center', fontSize: '12px' }}>
-          <h1>Customer</h1>
-          <p></p>
-          <button onClick={()=>{navigate('/consumerlogin')}} className="sh_btn">LOGIN</button>
-        </div>
-        <div className="cover">
-          <div className="coverFront">
-            <div>
-              <h5>Customer</h5>
-              <img src="img/customer.jpg" alt="" className="sh_img" />
-            </div>
-          </div>
-          <div className="coverBack"></div>
-        </div>
-      </div>
+    <div className="page2">
+      <div className="centered">
+        <div className="site-branding">
+          <main className="main-area">
+            <section className="cards">
+              <article className="card">
+                <a href="/consumerlogin">
+                  <figure>
+                    <img src="/img/customer2.png"></img>
+                  </figure>
+                  <div className="card-content">
+                    <h2>Customer</h2>
+                    <p>
+                      Customers, particularly vigilant ones, are essential in
+                      the fight against counterfeit products.They can help
+                      combat counterfeit products by using authenticity
+                      verification tools provided by manufacturers or online
+                      resources. Their vigilance contributes to brand trust,
+                      protects their well-being, and maintains marketplace
+                      integrity.
+                    </p>
+                  </div>
+                </a>
+              </article>
 
-      <div className="card">
-        <div style={{ padding: '20px', textAlign: 'center', fontSize: '12px' }}>
-          <h1>Seller</h1>
-          <p></p>
-          <button className="sh_btn" onClick={() => navigate('/sellerlogin')}>LOGIN</button>
-        </div>
-        <div className="cover">
-          <div className="coverFront">
-            <div>
-              <h5>Seller</h5>
-              <img src="img/pharma.jpg" alt="" className="sh_img" />
-            </div>
-          </div>
-          <div className="coverBack"></div>
-        </div>
-      </div>
+              <article className="card">
+                <a href="/manufacturerlogin">
+                  <figure className="thumbnail">
+                    <img src="/img/manuf2.png" alt="Placeholder" />
+                  </figure>
+                  <div className="card-content">
+                    <h2>Manufacturer</h2>
+                    <p>
+                      Manufacturers play a vital role in the economy by creating
+                      products that meet consumer needs and demand. They often
+                      utilize machinery, technology, and skilled labor to
+                      efficiently produce goods at scale, contributing to
+                      economic growth and employment opportunities.
+                      Additionally, manufacturers are responsible for ensuring
+                      product quality, safety
+                    </p>
+                  </div>
+                </a>
+              </article>
 
-      <div className="card">
-        <div style={{ padding: '20px', textAlign: 'center', fontSize: '12px' }}>
-          <h1>Manufacturer</h1>
-          <p></p>
-          <a><button onClick={()=>{navigate('/manufacturerlogin')}} className="sh_btn">LOGIN</button></a>
-        </div>
-        <div className="cover">
-          <div className="coverFront">
-            <div>
-              <h5>Manufacturer</h5>
-              <img src="img/manuf.jpg" alt="" className="sh_img" />
-            </div>
-          </div>
-          <div className="coverBack"></div>
+              {/* Add more articles as needed */}
+
+              <article className="card">
+                <a href="/sellerlogin">
+                  <figure className="thumbnail">
+                    <img src="/img/seller2.png" alt="Placeholder" />
+                  </figure>
+                  <div className="card-content">
+                    <h2>Seller</h2>
+                    <p>
+                      Sellers safeguard consumer trust by verifying product
+                      authenticity, utilizing anti-counterfeiting measures, and
+                      staying informed about counterfeit trends. Their diligence
+                      helps protect consumers, uphold marketplace integrity, and
+                      support legitimate businesses.
+                    </p>
+                  </div>
+                </a>
+              </article>
+            </section>
+          </main>
         </div>
       </div>
     </div>
