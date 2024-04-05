@@ -15,6 +15,7 @@ import {
   BsPeopleFill,
   BsFillGearFill,
 } from "react-icons/bs";
+import { IoLogOutOutline } from "react-icons/io5";
 
 function Manuf() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -65,6 +66,11 @@ function Manuf() {
           </span>
         </div>
         <ul className="manuf-sidebar-list">
+          <li>
+            <a href="/manufacturerlogin">
+              <IoLogOutOutline />
+            </a>
+          </li>
           <li className="manuf-sidebar-list-item">
             <a href="">
               <BsGrid1X2Fill className="manuf-icon" /> Dashboard

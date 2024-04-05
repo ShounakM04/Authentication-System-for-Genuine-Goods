@@ -4,6 +4,7 @@ import "../style/s_login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { PiArrowCircleLeftDuotone } from "react-icons/pi";
 
 const SellerLogin = () => {
   const [id, setId] = useState("");

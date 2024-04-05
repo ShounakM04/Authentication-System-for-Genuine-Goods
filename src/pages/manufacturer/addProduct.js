@@ -5,6 +5,7 @@ import web3 from "../../ethereum/web3";
 import Manufacturer from "../../ethereum/manufacturerIns";
 import "../../style/form.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { PiArrowCircleLeftFill } from "react-icons/pi";
 
 function AddProduct({ address }) {
   const [id, setId] = useState("");
@@ -40,6 +41,7 @@ function AddProduct({ address }) {
   };
   return (
     <div className="body">
+      <PiArrowCircleLeftFill />
       <h1> Enter Product Details</h1>
       <form onSubmit={generateQRCode}>
         <div class="grp">

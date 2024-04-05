@@ -82,3 +82,4 @@ const OpeningCard = () => {
 };
 
 export default OpeningCard;
+
