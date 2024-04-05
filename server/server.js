@@ -9,8 +9,8 @@ const bcrypt = require('bcrypt');
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "PBL",
-  password: "AmPpg@123",
+  database: "pbl",
+  password: "Surya@260604",
   port: 5432,
 });
 
@@ -23,7 +23,7 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-9
+
 app.post("/s_signup", (req, res) => {
   const { id, city, pass } = req.body;
   bcrypt.hash(pass, saltRounds, function(err, hash) {
