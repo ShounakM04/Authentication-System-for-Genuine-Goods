@@ -23,11 +23,11 @@ function App() {
     <>
       <Router>
         <div className="App">
-          {/* <DisableBrowserNavigation /> */}
+          <DisableBrowserNavigation />
           <Routes>
             <Route exact path="/" element={<Start />} />
             <Route path="/sellerlogin" element={<SLogin />} />
-            <Route
+            <Route 
               path="/manufacturerlogin"
               element={
                 <MLogin

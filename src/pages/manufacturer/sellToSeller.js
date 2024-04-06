@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Manufacturer from "../../ethereum/manufacturerIns";
 import web3 from "../../ethereum/web3";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { toast } from "react-toastify";
+
 
 
 const SellToSeller = ({ address }) => {
@@ -19,7 +21,19 @@ const SellToSeller = ({ address }) => {
       await manuIns.methods
         .sellToSeller(prodId, sellerId)
         .send({ from: accounts[0], gas: "1000000" });
+        
+
+        toast.success("Product Sold to Seller Successfully!", {
+          position: "top-center",
+          autoClose: 2500,
+        });
     } catch (error) {
+
+      toast.error("Error Ocuured while Selling product to Seller!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
+
       console.error("Error selling to seller:", error);
     }
     icon.classList.remove("fa", "fa-spinner", "fa-pulse");
@@ -32,8 +46,9 @@ const SellToSeller = ({ address }) => {
         <form onSubmit={sell}>
           <div className="grp">
             <input
+            required
               type="text"
-              placeholder="Enter PRODUCT ID"
+              // placeholder="Enter PRODUCT ID"
               name="product_id"
               value={prodId}
               onChange={(e) => setProdId(e.target.value)}
@@ -42,8 +57,9 @@ const SellToSeller = ({ address }) => {
           </div>
           <div className="grp">
             <input
+            required
               type="text"
-              placeholder="Enter Seller Id"
+              // placeholder="Enter Seller Id"
               name="seller_id"
               value={sellerId}
               onChange={(e) => setSellerId(e.target.value)}
@@ -53,8 +69,9 @@ const SellToSeller = ({ address }) => {
 
           <div className="grp">
             <input
+            required
               type="text"
-              placeholder="Enter Seller name"
+              // placeholder="Enter Seller name"
               name="seller_name"
               value={sellerName}
               onChange={(e) => setSellerName(e.target.value)}

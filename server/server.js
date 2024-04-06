@@ -5,6 +5,8 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const db = require("./config");
+const session = require("express-session");
+require("dotenv").config();
 
 db.connect();
 
@@ -50,6 +52,7 @@ app.post("/s_signin", (req, res) => {
       return res.status(401).send("Invalid credentials");
     }
       return res.status(200).send("1");*/
+      try{
     bcrypt.compare(pass, result.rows[0].pass, function (err, reslt) {
       if (reslt) {
         res.status(200).send("1");
@@ -57,6 +60,12 @@ app.post("/s_signin", (req, res) => {
         return res.status(402).send("Invalid credentials");
       }
     });
+  }catch{
+
+    res.status(401).send("Invalid credentials");
+
+
+  }
   });
 });
 
@@ -83,25 +92,36 @@ app.post("/m_signup", (req, res) => {
 });
 
 app.post("/m_signin", (req, res) => {
-  const { id, pass } = req.body;
-  db.query(
-    "SELECT * FROM manufacturer WHERE manuf_id = $1",
-    [id],
-    (err, result) => {
-      if (err) {
-        console.error("Error retrieving manufacturer:", err.stack);
-        return res.status(500).send({ error: "Error signing in" });
-      }
-      const manufacturer = result.rows[0];
-      bcrypt.compare(pass, manufacturer.pass, function (err, reslt) {
-        if (reslt) {
-          res.status(200).send("Successfully signed in");
-        } else {
+  try {
+    const { id, pass } = req.body;
+    db.query(
+      "SELECT * FROM manufacturer WHERE manuf_id = $1",
+      [id],
+      (err, result) => {
+        if (err) {
+          console.error("Error retrieving manufacturer:", err.stack);
+          return res.status(500).send({ error: "Error signing in" });
+        }
+
+        const manufacturer = result.rows[0];
+        try {
+          bcrypt.compare(pass, manufacturer.pass, function (err, reslt) {
+            if (reslt) {
+              res.status(200).send("Successfully signed in");
+            } else {
+              res.status(401).send("Invalid credentials");
+            }
+          });
+        } catch {
+          // alert("Very wrong credentials");
+          // console.log("wrong very wrong");
           res.status(401).send("Invalid credentials");
         }
-      });
-    }
-  );
+      }
+    );
+  } catch {
+    alert("Wrong Credentials!");
+  }
 });
 
 app.post("/brand", (req, res) => {

@@ -5,6 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { PiArrowCircleLeftDuotone } from "react-icons/pi";
+import { toast } from "react-toastify";
+
 
 const SellerLogin = () => {
   const [id, setId] = useState("");
@@ -48,9 +50,20 @@ const SellerLogin = () => {
         pass,
       });
       console.log(response.data);
+
+      toast.success("Account Created Successfully!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
+
     } catch (error) {
       console.error("Error signing up:", error);
       setError("Error signing up. Please try again.");
+
+      toast.error("Error in Creating Account!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
     }
     icon.classList.remove("fa", "fa-spinner", "fa-pulse");
   };
@@ -83,15 +96,25 @@ const SellerLogin = () => {
         pass,
       });
       if (response.data == "1") {
-        alert("Login successful");
+        // alert("Login successful");
+        toast.success("Logged In Successfully!", {
+          position: "top-center",
+          autoClose: 2500,
+        });
         navigate("/selltoConsumer");
       } else {
-        alert("Login unsuccessful");
+        // alert("Login unsuccessful else");
       }
+
+      
     } catch (error) {
       console.error("Error signing in:", error);
       setError("Invalid credentials. Please try again.");
-      alert("Login unsuccessful");
+      // alert("Login unsuccessful");
+      toast.error("Error in SignIn!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
       setFlag(2);
     }
   };
@@ -103,18 +126,21 @@ const SellerLogin = () => {
           <form onSubmit={handleSignUp}>
             <h1>Create Account</h1>
             <input
+              required
               type="text"
               placeholder="Seller ID"
               value={id}
               onChange={(e) => setId(e.target.value)}
             />
             <input
+              required
               type="text"
               placeholder="Seller City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
             <input
+              required
               type="password"
               placeholder="Password"
               value={pass}
@@ -129,12 +155,14 @@ const SellerLogin = () => {
           <form onSubmit={handleSignIn}>
             <h1>Sign In</h1>
             <input
+              required
               type="text"
               placeholder="YOUR ID"
               text={id}
               onChange={(e) => setId(e.target.value)}
             />
             <input
+              required
               type="password"
               placeholder="Password"
               text={pass}

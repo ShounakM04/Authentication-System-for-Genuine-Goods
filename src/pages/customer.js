@@ -3,6 +3,8 @@ import { QrReader } from "react-qr-reader";
 import "../style/customer.css";
 import Manufacturer from "../ethereum/manufacturerIns";
 import factory from "../ethereum/factory";
+import { toast } from "react-toastify";
+
 
 const Qrcode = () => {
   const [fileResult, setFileResult] = useState("");
@@ -41,6 +43,7 @@ const Qrcode = () => {
   };
 
   const authenticate = async () => {
+    try{
     const address = await factory.methods
       .getManufacturerInstance(manufacturerCode)
       .call();
@@ -48,13 +51,24 @@ const Qrcode = () => {
     const authres = await manuIns.methods
       .productVerification(productCode, parseInt(consumerKey))
       .call();
+      toast.success('Here you got your Result!',{
+        position:"top-center",
+        autoClose:2500
+      })
     if (authres) {
+
       setAuthenticationRes("The Product You are Purchasing is Authentic.");
       setActive("1");
     } else {
       setAuthenticationRes("Alert! The Product Might be Fake");
       setActive("2");
     }
+  }catch{
+    toast.error('Error in Getting Result!',{
+      position:"top-center",
+      autoClose:2500
+    })
+  }
   };
 
   const handleEnter = (event) => {
@@ -104,11 +118,12 @@ const Qrcode = () => {
             <div className="inp_text">
               <label>Consumer Code</label>
               <input
-                className="inp_code"
-                placeholder="Enter the Consumer Code"
-                value={consumerKey}
-                onChange={(e) => setConsumerKey(e.target.value)}
-                onKeyDown={(event) => handleEnter(event)}
+              required
+              className="inp_code"
+              placeholder="Enter the Consumer Code"
+              value={consumerKey}
+              onChange={(e) => setConsumerKey(e.target.value)}
+              onKeyDown={(event) => handleEnter(event)}
               />
             </div>
           </div>
