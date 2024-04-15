@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import factory from "../ethereum/factory";
 import web3 from "../ethereum/web3";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { toast } from "react-toastify";
 
 const ManufacturerLogin = (props) => {
   const [id, setId] = useState("");
@@ -50,11 +51,17 @@ const ManufacturerLogin = (props) => {
         pass,
       });
       console.log(response.data);
-      const res = await axios.post("http://localhost:3001/brand", { id });
       const accounts = await web3.eth.getAccounts();
       await factory.methods
         .createManufacturer(id, brand)
         .send({ from: accounts[0], gas: "20000000" });
+
+      const res = await axios.post("http://localhost:3001/brand", { id });
+
+      toast.success("Account Created Successfully!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
 
       props.setBrandName(res.data.manuf_brand);
       props.setCity(res.data.manuf_city);
@@ -66,6 +73,10 @@ const ManufacturerLogin = (props) => {
       }
       console.log(response.data);
     } catch (error) {
+      toast.error("Error in Creating Account!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
       console.error("Error signing up:", error);
     }
     icon.classList.remove("fa", "fa-spinner", "fa-pulse");
@@ -108,6 +119,10 @@ const ManufacturerLogin = (props) => {
           .getManufacturerInstance(res.data.manuf_brand)
           .call();
         props.setAddress(Manuaddress);
+        toast.success("Login Successful!", {
+          position: "top-center",
+          autoClose: 2000,
+        });
         navigate("/manufacturer", {
           state: {
             brand: res.data.manuf_brand,
@@ -115,15 +130,16 @@ const ManufacturerLogin = (props) => {
             city: res.data.manuf_city,
           },
         });
-        alert("Login successful");
       } else {
-        // alert("Login unsuccessful");
+        // alert("Login unsuccessful else");
       }
       console.log(response.data);
     } catch (error) {
       console.error("Error signing in:", error);
-      alert("Login unsuccessful");
-      setFlag(2);
+      toast.error("Login Unsucessfull!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
     }
   };
 
@@ -135,24 +151,28 @@ const ManufacturerLogin = (props) => {
             <form onSubmit={handleSignUp}>
               <h1>Create Account</h1>
               <input
+              required
                 type="text"
                 placeholder="Manufacturer ID"
                 value={id}
                 onChange={(e) => setId(e.target.value)}
               />
               <input
+              required
                 type="text"
                 placeholder="Manufacturer Brand"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               />
               <input
+              required
                 type="text"
                 placeholder="Manufacturer City"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
               <input
+              required
                 type="password"
                 placeholder="Password"
                 value={pass}
@@ -167,6 +187,7 @@ const ManufacturerLogin = (props) => {
             <form onSubmit={handleSignIn}>
               <h1>Sign In</h1>
               <input
+             
                 required
                 type="text"
                 placeholder="Manufacturer ID"

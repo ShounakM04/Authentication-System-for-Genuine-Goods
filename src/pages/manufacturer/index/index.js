@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./manuf_options.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 import {
   BsFillBellFill,
   BsFillEnvelopeFill,
@@ -15,15 +16,17 @@ import {
   BsPeopleFill,
   BsFillGearFill,
 } from "react-icons/bs";
+import { IoLogOutOutline } from "react-icons/io5";
 
 function Manuf() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const location = useLocation();
   const { brand, id, city } = location.state || {};
+  const navigate = useNavigate();
+
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
-  const navigate = useNavigate();
 
   const handleAddProduct = () => {
     navigate("./addProduct");
@@ -37,21 +40,21 @@ function Manuf() {
     navigate("./selltoseller");
   };
 
+  // const handleLogout = () => {
+  //   // Clear cookies
+  //   document.cookie.split(";").forEach((cookie) => {
+  //     const cookieName = cookie.split("=")[0].trim();
+  //     document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  //   });
+
+  //   // Go back to the previous page in history
+  //   // window.history.back();
+  //   navigate(-1);
+
+  // };
+
   return (
     <div className="manuf-grid-container">
-      {/* <header className="manuf-header">
-        <div className="manuf-menu-icon">
-          <BsJustify className="manuf-icon" onClick={OpenSidebar} />
-        </div>
-        <div className="manuf-header-left">
-          <BsSearch className="manuf-icon" />
-        </div>
-        <div className="manuf-header-right">
-          <BsFillBellFill className="manuf-icon" />
-          <BsFillEnvelopeFill className="manuf-icon" />
-          <BsPersonCircle className="manuf-icon" />
-        </div>
-      </header> */}
       <aside
         id="manuf-sidebar"
         className={openSidebarToggle ? "manuf-sidebar-responsive" : ""}

@@ -5,6 +5,8 @@ import web3 from "../../ethereum/web3";
 import Manufacturer from "../../ethereum/manufacturerIns";
 import "../../style/form.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { PiArrowCircleLeftFill } from "react-icons/pi";
+import { toast } from "react-toastify";
 
 function AddProduct({ address }) {
   const [id, setId] = useState("");
@@ -26,6 +28,11 @@ function AddProduct({ address }) {
         .addProduct(id, name, brand)
         .send({ from: accounts[0], gas: "20000000" });
 
+      toast.success("Product Details Added Successfully!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
+
       const qrdata = brand + " " + id;
       const imageDataURL = await qrcode.toDataURL(qrdata);
       setImageQR(imageDataURL);
@@ -35,16 +42,22 @@ function AddProduct({ address }) {
       qrDescriptionRef.current.innerHTML = "Clilck On the Qr To Download";
     } catch (error) {
       console.error("Error generating QR code:", error);
+      toast.error("Error in Adding Product Details!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
     }
     icon.classList.remove("fa", "fa-spinner", "fa-pulse");
   };
   return (
     <div className="body">
+      {/* <PiArrowCircleLeftFill /> */}
       <h1> Enter Product Details</h1>
       <form onSubmit={generateQRCode}>
         <div class="grp">
           <input
-            placeholder="Enter brand"
+            required
+            // placeholder="Enter brand"
             type="text"
             name="brand_name"
             value={brand}
@@ -54,8 +67,9 @@ function AddProduct({ address }) {
         </div>
         <div className="grp">
           <input
+            required
             type="text"
-            placeholder="Enter product name"
+            // placeholder="Enter product name"
             name="product_name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -64,8 +78,9 @@ function AddProduct({ address }) {
         </div>
         <div className="grp">
           <input
+            required
             type="text"
-            placeholder="Enter product id"
+            // placeholder="Enter product id"
             name="product_id"
             value={id}
             onChange={(event) => setId(event.target.value)}
@@ -75,8 +90,9 @@ function AddProduct({ address }) {
 
         <div className="grp">
           <input
+            required
             type="text"
-            placeholder="Enter prouct price"
+            // placeholder="Enter prouct price"
             name="product_price"
           />
           <label for="product_pr">PRODUCT PRICE </label>

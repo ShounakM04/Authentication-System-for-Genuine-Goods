@@ -3,6 +3,7 @@ import "../../style/form.css";
 import web3 from "../../ethereum/web3";
 import Manufacturer from "../../ethereum/manufacturerIns";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { toast } from "react-toastify";
 
 const AddSeller = ({ address }) => {
   const [id, setId] = useState("");
@@ -19,11 +20,20 @@ const AddSeller = ({ address }) => {
       await manuIns.methods
         .addSellers(id)
         .send({ from: accounts[0], gas: "1000000" });
+
+      toast.success("Seller Details Added Successfully!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
       setId("");
       setCity("");
       setName("");
     } catch (error) {
       console.error("Error submitting transaction:", error);
+      toast.error("Error in Adding Seller Details!", {
+        position: "top-center",
+        autoClose: 2500,
+      });
     }
     icon.classList.remove("fa", "fa-spinner", "fa-pulse");
   };
@@ -34,8 +44,9 @@ const AddSeller = ({ address }) => {
       <form onSubmit={adding}>
         <div className="grp">
           <input
+            required
             type="text"
-            placeholder="Enter SELLER ID"
+            // placeholder="Enter SELLER ID"
             name="seller_id"
             value={id}
             onChange={(e) => setId(e.target.value)}
@@ -44,8 +55,9 @@ const AddSeller = ({ address }) => {
         </div>
         <div className="grp">
           <input
+            required
             type="text"
-            placeholder="Enter Seller City"
+            // placeholder="Enter Seller City"
             name="seller_city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -54,8 +66,9 @@ const AddSeller = ({ address }) => {
         </div>
         <div className="grp">
           <input
+            required
             type="text"
-            placeholder="Enter Seller name"
+            // placeholder="Enter Seller name"
             name="seller_name"
             value={name}
             onChange={(e) => setName(e.target.value)}
