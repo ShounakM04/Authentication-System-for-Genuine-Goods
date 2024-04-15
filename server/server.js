@@ -16,8 +16,7 @@ const saltRounds = 10;
 
 app.use(express.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-9;
+app.use(bodyParser.urlencoded({ extended: true }));;
 app.post("/s_signup", (req, res) => {
   const { id, city, pass } = req.body;
   bcrypt.hash(pass, saltRounds, function (err, hash) {

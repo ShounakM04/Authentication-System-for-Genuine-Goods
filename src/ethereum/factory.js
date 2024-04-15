@@ -3,7 +3,7 @@ import manuFactory from "./build/manufacturerFactory.json";
 
 const instance = new web3.eth.Contract(
   manuFactory.abi,
-  "0xEDeA338bAA049ecC761F3caFE66524836E577F59"
+  "0x23Fdddb100a003Fe2217310c2e6Bf9F9FbDc0Ccd"
 );
 
 export default instance;
